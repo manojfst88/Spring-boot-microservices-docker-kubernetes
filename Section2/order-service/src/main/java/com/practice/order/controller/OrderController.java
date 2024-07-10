@@ -1,10 +1,17 @@
 package com.practice.order.controller;
 
+import com.practice.order.dto.ErrorResponseDto;
+import com.practice.order.dto.OrderDto;
 import com.practice.order.entity.Order;
 import com.practice.order.entity.OrderStatus;
 import com.practice.order.repository.OrderRepository;
 import com.practice.order.request.PaymentRequest;
 import com.practice.order.response.PaymentResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
@@ -20,6 +27,9 @@ public class OrderController {
 
     @Autowired
     RestTemplateBuilder restTemplateBuilder;
+
+    @Autowired
+    OrderDto orderDto;
 
     @GetMapping("/orders")
     public ResponseEntity<?> orders() {
@@ -48,6 +58,31 @@ public class OrderController {
             return new ResponseEntity<>("Order not created successfully",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Order created successfully", HttpStatus.CREATED);
+    }
+
+    @Operation(
+            summary = "Get Contact Info",
+            description = "Contact Info details that can be reached out in case of any issues"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<OrderDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderDto);
     }
 
 }

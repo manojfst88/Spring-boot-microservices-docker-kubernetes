@@ -1,0 +1,11 @@
+
+build:
+  version: "2.0"
+
+order:
+  message: "Welcome to order service related local QA APIs"
+  contactDetails:
+    name: "Manoj - Technical QA Lead"
+    email: "manoj@practice.com"
+  onCallSupport:
+    - +919884137236
