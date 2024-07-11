@@ -9,3 +9,7 @@
  Understanding the config path using local path, filepath and github path
  Understanding the challenges and the pain points in connecting the config server with the application using RabbitMq to pull the latest updated properties changes in the github config repo
  Deploying applications in different environment using docker compose
+ 
+## Section 3
+  Migrating H2 database to Mysql database
+  Updating docker respective to connect with mysql database
