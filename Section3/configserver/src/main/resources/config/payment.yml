@@ -1,0 +1,11 @@
+
+build:
+  version: "3.0"
+
+payment:
+  message: "Welcome to payment service related local DEV APIs"
+  contactDetails:
+    name: "Manoj - Technical DEV Lead"
+    email: "manoj@practice.com"
+  onCallSupport:
+    - +919884137236

@@ -1,0 +1,11 @@
+
+build:
+  version: "1.0"
+
+order:
+  message: "Welcome to order service related local PROD APIs"
+  contactDetails:
+    name: "Manoj - Technical PROD Lead"
+    email: "manoj@practice.com"
+  onCallSupport:
+    - +919884137236

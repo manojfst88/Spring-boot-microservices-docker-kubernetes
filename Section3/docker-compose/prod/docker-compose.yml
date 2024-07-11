@@ -1,0 +1,81 @@
+services:
+  rabbit:
+    image: rabbitmq:3.13-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
+  configserver:
+    image: "manojfst88/configserver:s5"
+    container_name: configserver-prod-ms
+    ports:
+      - "8071:8071"
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+
+  customer:
+    image: "manojfst88/customer-service:s5"
+    container_name: customer-ms
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: "customer"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  product:
+    image: "manojfst88/product-service:s5"
+    container_name: product-ms
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_APPLICATION_NAME: "product"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  order:
+    image: "manojfst88/order-service:s5"
+    container_name: order-ms
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_APPLICATION_NAME: "order"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  payment:
+    image: "manojfst88/payment-service:s5"
+    container_name: payment-ms
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_APPLICATION_NAME: "payment"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+networks:
+  manojfst:
+    driver: "bridge"

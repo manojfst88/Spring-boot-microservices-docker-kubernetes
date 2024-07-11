@@ -1,0 +1,11 @@
+
+build:
+  version: "1.0"
+
+payment:
+  message: "Welcome to payment service related local PROD APIs"
+  contactDetails:
+    name: "Manoj - Technical PROD Lead"
+    email: "manoj@practice.com"
+  onCallSupport:
+    - +919884137236
