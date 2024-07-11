@@ -11,5 +11,5 @@
  ### Deploying applications in different environment using docker compose
  
 ## Section 3
-  ### Migrating H2 database to Mysql database
-  ### Updating docker respective to connect with mysql database
+  ### Migrating H2 database to PostGRESql database
+  ### Updating docker respective to connect with PostGRESql database
